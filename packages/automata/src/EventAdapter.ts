@@ -23,7 +23,7 @@ export abstract class AutomataEventAdapter<
 		PayloadType extends { [K in ActionType]: any } = Record<ActionType, any>,
 		EventMetaType extends { [K in EventType]: any } = Record<EventType, any>
 	>
-	extends AutomataValidatorContainer<StateType, ActionType, EventType, ContextType, PayloadType, EventMetaType>
+	extends AutomataValidatorContainer<StateType, ActionType, EventType>
 	implements IAutomataEventAdapter<StateType, ActionType, EventType, ContextType, PayloadType, EventMetaType>
 {
 	protected eventListeners: {
