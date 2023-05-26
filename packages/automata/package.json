@@ -31,7 +31,9 @@
 		"url": "https://github.com/octaharon/yantrix/issues"
 	},
 	"devDependencies": {
+		"@types/underscore": "^1.11.4",
 		"ts-node": "^10.9.1",
-		"tslib": "^2.5.0"
+		"tslib": "^2.5.0",
+		"underscore": "^1.13.6"
 	}
 }

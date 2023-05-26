@@ -21,16 +21,18 @@ export type TStateLookupParams<StateType extends TAutomataBaseStateType> =
 
 export type TActionKeysCollection<ActionType extends TAutomataBaseActionType> =
 	{
-		keys: string[];
+		keys: Array<null | string>;
 		namespace?: string;
 	};
 
 export type TActionValuesCollection<
 	ActionType extends TAutomataBaseActionType
 > = {
-	actions: ActionType[];
+	actions: Array<null | number>;
 	namespace?: string;
 };
 
 export type TActionLookupParams<ActionType extends TAutomataBaseActionType> =
-	TActionKeysCollection<ActionType> & TActionValuesCollection<ActionType>;
+	Partial<
+		TActionKeysCollection<ActionType> & TActionValuesCollection<ActionType>
+	>;

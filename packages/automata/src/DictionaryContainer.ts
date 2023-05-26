@@ -68,7 +68,7 @@ export default abstract class AbstractDictionaryContainer<ItemType> {
 		if (meta?.namespace)
 			this._namespaceIndex[meta.namespace] = this._namespaceIndex[
 				meta.namespace
-			].filter((v) => v === itemKey);
+			].filter((v) => v !== itemKey);
 		this._dictionaryIndex.delete(item);
 		return this;
 	}
@@ -81,7 +81,11 @@ export default abstract class AbstractDictionaryContainer<ItemType> {
 		const k = this._getItemKey(itemKey, namespace);
 		if (this._dictionary[k])
 			throw new Error(
-				`Item key ${itemKey} is taken within namespace "${namespace}"`
+				`Item key ${itemKey} is taken within ${
+					namespace == null
+						? 'default namespace'
+						: `namespace "${namespace}"`
+				}`
 			);
 		const value = this._getItemValue(itemKey, namespace);
 		this._dictionary[k] = value;

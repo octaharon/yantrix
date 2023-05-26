@@ -74,6 +74,7 @@ export default abstract class GenericActionDictionary<
 		namespace = undefined,
 	}: TActionValuesCollection<ActionType>): Array<string | null> {
 		return (actions ?? []).map((action) => {
+			if (!this.validateAction(action)) return null;
 			const data = this._getValueData(action);
 			if (!data) return null;
 			if (namespace !== null && namespace !== data.namespace) return null;
@@ -92,7 +93,9 @@ export default abstract class GenericActionDictionary<
 	}: TActionLookupParams<ActionType>) {
 		const actionsToDelete = [
 			...actions.filter(this.validateAction),
-			...keys.map((actionKey) => this._findItem(actionKey, namespace)),
+			...keys.map((actionKey) =>
+				this._findItem(actionKey as string, namespace)
+			),
 		].filter((v) => v != null) as ActionType[];
 		const actionKeys = actionsToDelete
 			.map((action) => this._getValueData(action))
@@ -111,7 +114,7 @@ export default abstract class GenericActionDictionary<
 		keys = [],
 	}: TActionKeysCollection<ActionType>): Array<ActionType | null> {
 		return (keys ?? []).map((actionKey) =>
-			this._findItem(actionKey, namespace)
+			this._findItem(actionKey as string, namespace)
 		);
 	}
 
@@ -119,6 +122,8 @@ export default abstract class GenericActionDictionary<
 		namespace = undefined,
 		keys,
 	}: TActionKeysCollection<ActionType>): ActionType[] {
-		return (keys || []).map((k) => this._addItemKey(k, namespace));
+		return (keys || []).map((k) =>
+			this._addItemKey(k as string, namespace)
+		);
 	}
 }
